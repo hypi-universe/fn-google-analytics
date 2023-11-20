@@ -68,6 +68,8 @@ Some common example events are
 
 # Build & Release
 
+NOTE: This is NOT necessary for this function. Hypi publishes the `ga` function, use `src: "hypi"` as shown in the usage above.
+
 1. Make sure you've logged into the Hypi container register by running `docker login hcr.hypi.app -u hypi` and enter a token from your Hypi account as the password
 2. Build the JAR and copy the dependencies `mvn clean package`
 3. Build the docker image `docker build . -t hcr.hypi.app/ga:v4`
