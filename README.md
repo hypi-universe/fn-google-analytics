@@ -20,6 +20,24 @@ Note that the structure of the custom type must match the structure returned fro
 
 Use Google's [official demo](https://ga-dev-tools.google/ga4/event-builder/?c=search) to build a GA4 event.
 
+then call it with:
+```graphql
+{
+  sendGAEvent(
+    events: [{ name: "search", params: { search_term: "music festival" } }]
+  )
+}
+```
+* `name` is the name of the event you want to show up in GA. Try to re-use the ones GA has built in, but any name will work
+* `params` are key value pairs you want associated with the event, in this example we report the search term as `music festival`
+
+Up to 25 events can be sent in a single request (in the events array).
+
+:::WARNING:::
+
+Don't send arbitrary keys in the object. GA will return an OK response but your event may not appear as expected.
+Use the keys in the GA documentation
+
 ## Env keys
 
 * `GA4_SECRET` env is required. You create an environment variable in your Hypi app with this name and provide the value on each instance that uses this function.
@@ -30,6 +48,7 @@ Use Google's [official demo](https://ga-dev-tools.google/ga4/event-builder/?c=se
 
 All the arguments to the GA 4 API are [available here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body).
 
+* `is_debug: Boolean` - optional, if set, the function sends a debug event to GA which can be viewed in the GA debugger
 * `measurement_id: String` - Required if `GA4_MEASUREMENT_ID` is not provided, otherwise optional
 * `client_id: String` Optional, if not provided, the function uses `hypi_fn_api_<account_id>`. Uniquely identifies a user instance of a web client. See send event to the Measurement Protocol.
 * `user_id: String` Optional, if not provided, the function uses the account ID making the request
